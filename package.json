@@ -1,5 +1,5 @@
 {
-	"name": "obs-remote-timer",
+	"name": "obs-remote-client",
 	"version": "1.0.0",
 	"description": "A minimal app to track time on OBS remotly",
 	"main": "main.js",
