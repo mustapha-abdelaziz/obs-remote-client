@@ -1,73 +1,89 @@
 :root {
-  --smaller: .95;
+	--smaller: 0.95;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+  transition: all .4s ease;
+
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
+html,
+body {
+	height: 100%;
+	margin: 0;
 }
 
 body {
-  align-items: center;
-  background-color: #ffd54f;
-  display: flex;
-  font-family: -apple-system, 
-    BlinkMacSystemFont, 
-    "Segoe UI", 
-    Roboto, 
-    Oxygen-Sans, 
-    Ubuntu, 
-    Cantarell, 
-    "Helvetica Neue", 
-    sans-serif;
+	align-items: center;
+	background-color: #ffd54f;
+	display: flex;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .container {
-  color: #333;
-  margin: 0 auto;
-  text-align: center;
+	color: #333;
+	margin: 0 auto;
+	text-align: center;
 }
 
 h1 {
-  font-weight: normal;
-  letter-spacing: .125rem;
-  text-transform: uppercase;
+	font-weight: normal;
+	letter-spacing: 0.125rem;
+	text-transform: uppercase;
+  
 }
 
-ul{
-  display: flex;
+ul {
+	display: flex;
 }
 
 li {
-  display: inline-block;
-  font-size: 1.5em;
-  list-style-type: none;
-  padding-right: 10px;
-  text-transform: uppercase;
+	display: inline-block;
+	font-size: 1.5em;
+	list-style-type: none;
+	padding-right: 10px;
+	text-transform: uppercase;
 }
 
 li span {
-  display: block;
-  font-size: 4.5rem;
+	display: block;
+	font-size: 4.5rem;
 }
 
-.event-med-logo{
-  margin: 5px;
+.event-med-logo {
+	margin: 5px;
 }
 
-.logo-only{
-  height: 45px;
-  width: 45px;
-  display: none;
+.logo-only {
+	height: 45px;
+	width: 45px;
+	display: none;
 }
 
+.settings {
+  -webkit-app-region: no-drag;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 1rem;
+  
+}
 
+.settings-icon {
+	width: 35px;
+	height: 35px;
+  color: #333;
+  opacity: .1;
+  
+}
+
+.settings-icon:hover{
+  opacity: 1;
+}
 
 /* 
 @media all and (max-width: 300px) {
@@ -86,39 +102,56 @@ li span {
 
 } */
 
+
 @media all and (max-width: 300px) {
-  .logo-only{
-    height: 90px;
-    width: 90px;
-    
-    display: block;
+  .settings-icon {
+    width: 25px;
+    height: 25px;
   }
+}
 
-  .hide-on-mobile{
-    display: none;
-  }
-
-
-  .logo-mobile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+@media all and ( max-height:200px){
+  .settings-icon {
+    width: 25px;
+    height: 25px;
   }
 }
 
 
 
+
+@media all and (max-width: 300px) {
+	.logo-only {
+		height: 90px;
+		width: 90px;
+
+		display: block;
+	}
+
+	.hide-on-mobile {
+		display: none;
+	}
+
+	.logo-mobile {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
+
+
+}
+
 @media all and (max-height: 400px) {
-  h1 {
-    font-size: calc(1.5rem * var(--smaller));
-  }
-  
-  li {
-    font-size: calc(1.125rem * var(--smaller));
-  }
-  
-  li span {
-    font-size: calc(3.375rem * var(--smaller));
-  }
+	h1 {
+		font-size: calc(1.5rem * var(--smaller));
+	}
+
+	li {
+		font-size: calc(1.125rem * var(--smaller));
+	}
+
+	li span {
+		font-size: calc(3.375rem * var(--smaller));
+	}
 }

@@ -1,13 +1,23 @@
+const { join, dirname } = require("path");
+
 let url = "https://obs-timer-api.herokuapp.com";
 //let url = "http://127.0.0.1:3000"
 let interval;
+let setButton = document.getElementById("set-btn");
 
+//setting button functionality
+setButton.addEventListener("click", () => {
+	console.log("clicked");
+});
+
+//Timer Button Functionalities
 try {
 	let t0 = performance.now();
 
 	fetch(url + "/api/timer")
 		.then((res) => res.json())
 		.then((data) => {
+			//console.log(666666666666,data);
 			clearInterval(interval); //Stop the interval
 			let t1 = performance.now();
 
@@ -33,7 +43,7 @@ try {
 //////////////////////////////////////////////////
 
 function calculatTime(videoLength, submittedTime, serverDelai = 0) {
-	exactTime = videoLength - (Date.now() - submittedTime) - serverDelai-1;
+	exactTime = videoLength - (Date.now() - submittedTime) - serverDelai - 1;
 
 	let timedFormat = "00:00:00";
 
@@ -45,47 +55,41 @@ function calculatTime(videoLength, submittedTime, serverDelai = 0) {
 }
 
 function printTime(timedFormat) {
-	 	let hours = parseInt(timedFormat.substr(0, 2)),
-		min = parseInt(timedFormat.substr(3, 2)) + hours*60,
-		sec = parseInt(timedFormat.substr(6, 2)); 
-		console.log("init", hours, min, sec);
-
-
+	let hours = parseInt(timedFormat.substr(0, 2)),
+		min = parseInt(timedFormat.substr(3, 2)) + hours * 60,
+		sec = parseInt(timedFormat.substr(6, 2));
+	//console.log("init", hours, min, sec);
 
 	//initialize the timer on the DOM
 
 	interval = setInterval(() => {
-		console.log("inside or loop after setting ", hours, min, sec);
+		//console.log("inside or loop after setting ", hours, min, sec);
 
-		if (sec < 0 || min < 0 ) {
-			console.log("inside or loop ", hours, min, sec);
-			
-			clearInterval(interval);
-			sec=0, min=0
-			console.log("inside or loop after setting ", hours, min, sec);
-
-		}else
-		if (sec <= 0 && min <= 0 ) {
-			console.log("inside and loop ", min, sec);
+		if (sec < 0 || min < 0) {
+			//console.log("inside or loop ", hours, min, sec);
 
 			clearInterval(interval);
-			sec=0, min=0;
-		}else
-		
-		if (sec > 0) {
+			(sec = 0), (min = 0);
+			//console.log("inside or loop after setting ", hours, min, sec);
+		} else if (sec <= 0 && min <= 0) {
+			//console.log("inside and loop ", min, sec);
+
+			clearInterval(interval);
+			(sec = 0), (min = 0);
+		} else if (sec > 0) {
 			sec--;
 		} else if (sec <= 0) {
-			console.log("inside if statement");
+			//console.log("inside if statement");
 			if (min > 0) {
 				min--;
 			}
 			sec = 59;
 		}
 
-		console.log("final ", hours, min, sec);
+		//console.log("final ", hours, min, sec);
 
 		//(document.getElementById("hours").innerText = hours),
-			(document.getElementById("minutes").innerText = min),
+		(document.getElementById("minutes").innerText = min),
 			(document.getElementById("seconds").innerText = sec);
 	}, 1000);
 }
