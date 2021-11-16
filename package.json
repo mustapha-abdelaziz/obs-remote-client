@@ -28,6 +28,9 @@
 		},
 		"win": {
 			"target": "NSIS"
-		}
+		},
+		"extraFiles": [
+			"utils"
+		]
 	}
 }

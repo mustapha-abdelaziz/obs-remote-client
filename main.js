@@ -30,7 +30,7 @@ function createWindow() {
 		minHeight: 20,
 		minWidth: 200,
 		autoHideMenuBar: true,
-		maximizable:false,
+		maximizable: false,
 		minimizable: false,
 		show: false,
 		webPreferences: {
@@ -49,17 +49,17 @@ function createWindow() {
 	settingWindow.loadFile("settings.html");
 
 	// Open the DevTools.
-	mainWindow.webContents.openDevTools();
-	settingWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
+	//settingWindow.webContents.openDevTools();
 
 	settingWindow.on("close", function (evt) {
 		evt.preventDefault();
 		settingWindow.hide();
 	});
 
-	settingWindow.on('show', () => {
-		settingWindow.webContents.send('get-config-data')
-	})
+	settingWindow.on("show", () => {
+		settingWindow.webContents.send("get-config-data");
+	});
 
 	ipcMain.on("show-settings", () => {
 		settingWindow.show();
@@ -73,6 +73,26 @@ function createWindow() {
 		mainWindow.webContents.send("configs:change-color", colorConfigs);
 	});
 
+	ipcMain.on("configs:change-alwaysOnTop", (event, alwaysOnTop) => {
+		mainWindow.setAlwaysOnTop(alwaysOnTop);
+	});
+
+	readSettingData();
+
+	function readSettingData(params) {
+		fs.readFile("utils/config.json", (err, jsonString) => {
+			if (err) {
+				console.log("Error reading file from disk:", err);
+				return;
+			}
+			try {
+				const settings = JSON.parse(jsonString);
+				mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+			} catch (err) {
+				console.log("Error parsing JSON string:", err);
+			}
+		});
+	}
 }
 
 // This method will be called when Electron has finished
