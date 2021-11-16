@@ -1,14 +1,11 @@
-const { join, dirname } = require("path");
+
 
 let url = "https://obs-timer-api.herokuapp.com";
 //let url = "http://127.0.0.1:3000"
 let interval;
 let setButton = document.getElementById("set-btn");
 
-//setting button functionality
-setButton.addEventListener("click", () => {
-	console.log("clicked");
-});
+
 
 //Timer Button Functionalities
 try {
@@ -87,6 +84,14 @@ function printTime(timedFormat) {
 		}
 
 		//console.log("final ", hours, min, sec);
+
+		if (min.toString().length<2) {
+			min = "0"+min;
+		}
+
+		if (sec.toString().length<2) {
+			sec = "0"+sec;
+		}
 
 		//(document.getElementById("hours").innerText = hours),
 		(document.getElementById("minutes").innerText = min),

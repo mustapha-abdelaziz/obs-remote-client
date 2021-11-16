@@ -2,13 +2,14 @@
 const { app, BrowserWindow, Menu, ipcMain, ipcRenderer } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const { ChildProcess } = require("child_process");
 
 function createWindow() {
 	// Create the browser window.
-	const mainWindow = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		frame: false,
-		width: 800,
-		height: 600,
+		width: 400,
+		height: 300,
 		minHeight: 20,
 		minWidth: 200,
 		webPreferences: {
@@ -22,11 +23,56 @@ function createWindow() {
 		},
 	});
 
+	settingWindow = new BrowserWindow({
+		parent: mainWindow,
+		width: 650,
+		height: 350,
+		minHeight: 20,
+		minWidth: 200,
+		autoHideMenuBar: true,
+		maximizable:false,
+		minimizable: false,
+		show: false,
+		webPreferences: {
+			preload: path.join(__dirname, "preload.js"),
+		},
+		alwaysOnTop: true,
+		webPreferences: {
+			nodeIntegration: true,
+			contextIsolation: false,
+		},
+	});
+
 	// and load the index.html of the app.
 	mainWindow.loadFile("index.html");
 
+	settingWindow.loadFile("settings.html");
+
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools();
+	settingWindow.webContents.openDevTools();
+
+	settingWindow.on("close", function (evt) {
+		evt.preventDefault();
+		settingWindow.hide();
+	});
+
+	settingWindow.on('show', () => {
+		settingWindow.webContents.send('get-config-data')
+	})
+
+	ipcMain.on("show-settings", () => {
+		settingWindow.show();
+	});
+
+	ipcMain.on("hide-settings", () => {
+		settingWindow.hide();
+	});
+
+	ipcMain.on("configs:change-color", (event, colorConfigs) => {
+		mainWindow.webContents.send("configs:change-color", colorConfigs);
+	});
+
 }
 
 // This method will be called when Electron has finished
@@ -85,9 +131,8 @@ app.on("window-all-closed", function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.handle("read-user-data", () => {
-	
-	return fs.readFileSync("utils/config.json", "utf8", (err, jsonString) => {
+ipcMain.handle("read-config-data", () => {
+	return fs.readFileSync("utils/config.json", (err, jsonString) => {
 		if (err) {
 			console.log("Error reading file from disk:", err);
 			return;
@@ -100,4 +145,3 @@ ipcMain.handle("read-user-data", () => {
 		}
 	});
 });
-

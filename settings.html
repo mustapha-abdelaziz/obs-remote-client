@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="settings.css">
+  <title>Settings</title>
+</head>
+<body>
+  <!--
+    A slider with track fill, configurable tick marks and min/max labels
+
+    Design by Outcrowd https://dribbble.com/shots/9659984-Mobile-App-Mail-Service
+-->
+<div id="wrapper">
+  <div id="sliderContainer">
+      <div class="tick-slider">
+          <div class="tick-slider-header">
+              <h5><label for="weightSlider">Text Color</label></h5>
+              <input type="color" name="txtClr" id="textColor">
+              
+          </div>
+      <div class="tick-slider">
+          <div class="tick-slider-header">
+              <h5><label for="sizeSlider">Background Color</label></h5>
+              <input type="color" name="bgClr" id="backgroundColor">
+          </div>
+      </div>
+
+      <div style="display: flex;">
+        <button class="save-btn" id="save-button" >Save</button>
+        <button class="save-btn" id="cancel-button">Cancel</button>
+        <button class="reset-btn" id="reset-button">Reset to default</button>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+<script type="module" src="./settings.js"></script>
+
+</body>
+</html>
